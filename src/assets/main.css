@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 280 100% 97%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 280 75% 60%;
+    --primary-foreground: 355 100% 97%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 280 50% 90%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 280 50% 80%;
+    --input: 280 50% 80%;
+    --ring: 280 75% 60%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 280 50% 3%;
+    --foreground: 0 0% 95%;
+    --card: 280 50% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 280 50% 5%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 280 75% 60%;
+    --primary-foreground: 355 100% 97%;
+    --secondary: 280 30% 15%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 280 50% 15%;
+    --muted-foreground: 280 30% 70%;
+    --accent: 280 50% 25%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 280 50% 20%;
+    --input: 280 50% 20%;
+    --ring: 280 75% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/PlayfairDisplay-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/PlayfairDisplay-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
