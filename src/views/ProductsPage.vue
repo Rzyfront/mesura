@@ -16,7 +16,9 @@
                 Explora nuestra colección completa de prendas y accesorios
               </p>
             </div>
-            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-6">
+            
+            <!-- Display products grid when products exist -->
+            <div v-if="products.length > 0" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pt-6 w-full">
               <ProductCard
                 v-for="product in products"
                 :key="product.id"
@@ -25,6 +27,17 @@
                 :image="product.image"
                 :slug="product.slug"
               />
+            </div>
+            
+            <!-- Empty state when no products are available -->
+            <div v-else class="w-full text-center py-12 px-4 bg-gray-50 rounded-lg mt-6">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+              </svg>
+              <h3 class="text-xl font-semibold text-gray-800 mb-2">No hay productos disponibles</h3>
+              <p class="text-gray-600 max-w-md mx-auto">
+                En este momento no hay productos para mostrar. Por favor, vuelve a consultar más tarde.
+              </p>
             </div>
           </div>
         </div>
@@ -37,68 +50,6 @@
   import ProductCard from '../components/ProductCard.vue'
   
   const products = [
-    {
-      id: 1,
-      name: "Blusa Primavera",
-      price: "$45.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "blusa-primavera",
-    },
-    {
-      id: 2,
-      name: "Vestido Floral",
-      price: "$89.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "vestido-floral",
-    },
-    {
-      id: 3,
-      name: "Pantalón Elegante",
-      price: "$65.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "pantalon-elegante",
-    },
-    {
-      id: 4,
-      name: "Falda Midi",
-      price: "$55.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "falda-midi",
-    },
-    {
-      id: 5,
-      name: "Chaqueta Ligera",
-      price: "$95.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "chaqueta-ligera",
-    },
-    {
-      id: 6,
-      name: "Blusa Seda",
-      price: "$75.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "blusa-seda",
-    },
-    {
-      id: 7,
-      name: "Vestido Noche",
-      price: "$120.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "vestido-noche",
-    },
-    {
-      id: 8,
-      name: "Jeans Premium",
-      price: "$85.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "jeans-premium",
-    },
-    {
-      id: 9,
-      name: "Collar Delicado",
-      price: "$35.99",
-      image: "/placeholder.svg?height=400&width=300",
-      slug: "collar-delicado",
-    },
+    
   ]
   </script>
