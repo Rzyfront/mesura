@@ -1,17 +1,17 @@
 <template>
   <div class="space-y-6">
     <div>
-      <h3 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">Configuración de Productos</h3>
-      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Configuración de Productos</h3>
+      <p class="mt-1 text-sm text-gray-500">
         Gestiona la configuración general de los productos de tu tienda.
       </p>
     </div>
 
-    <div class="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+    <div class="mt-6 divide-y divide-gray-200">
       <!-- Configuración de visualización de productos -->
       <div class="py-6">
-        <h4 class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Visualización de Productos</h4>
-        <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
+        <h4 class="text-sm font-medium leading-6 text-gray-900">Visualización de Productos</h4>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
           <p>Configura cómo se muestran los productos en tu tienda.</p>
         </div>
         <div class="mt-4 space-y-4">
@@ -26,8 +26,8 @@
               />
             </Switch>
             <span class="ml-3">
-              <span class="text-sm font-medium text-gray-900 dark:text-white">Mostrar stock</span>
-              <span class="text-sm text-gray-500 dark:text-gray-400">&nbsp;- Muestra la cantidad disponible en la página del producto</span>
+              <span class="text-sm font-medium text-gray-900">Mostrar stock</span>
+              <span class="text-sm text-gray-500">&nbsp;- Muestra la cantidad disponible en la página del producto</span>
             </span>
           </div>
 
@@ -42,8 +42,8 @@
               />
             </Switch>
             <span class="ml-3">
-              <span class="text-sm font-medium text-gray-900 dark:text-white">Mostrar SKU</span>
-              <span class="text-sm text-gray-500 dark:text-gray-400">&nbsp;- Muestra el código SKU en la página del producto</span>
+              <span class="text-sm font-medium text-gray-900">Mostrar SKU</span>
+              <span class="text-sm text-gray-500">&nbsp;- Muestra el código SKU en la página del producto</span>
             </span>
           </div>
         </div>
@@ -51,8 +51,8 @@
 
       <!-- Configuración de inventario -->
       <div class="py-6">
-        <h4 class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Gestión de Inventario</h4>
-        <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
+        <h4 class="text-sm font-medium leading-6 text-gray-900">Gestión de Inventario</h4>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
           <p>Configura las opciones de gestión de inventario.</p>
         </div>
         <div class="mt-4 space-y-4">
@@ -67,8 +67,8 @@
               />
             </Switch>
             <span class="ml-3">
-              <span class="text-sm font-medium text-gray-900 dark:text-white">Alertas de stock bajo</span>
-              <span class="text-sm text-gray-500 dark:text-gray-400">&nbsp;- Recibe notificaciones cuando el stock esté bajo</span>
+              <span class="text-sm font-medium text-gray-900">Alertas de stock bajo</span>
+              <span class="text-sm text-gray-500">&nbsp;- Recibe notificaciones cuando el stock esté bajo</span>
             </span>
           </div>
         </div>
@@ -79,7 +79,7 @@
     <div class="flex justify-end py-4">
       <button
         type="button"
-        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
         @click="saveSettings"
       >
         <Save class="w-4 h-4 mr-2" />
@@ -107,4 +107,4 @@ const saveSettings = () => {
   // Aquí iría la lógica para guardar la configuración
   showToast('Configuración guardada correctamente', 'success')
 }
-</script> 
+</script>

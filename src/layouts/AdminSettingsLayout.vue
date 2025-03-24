@@ -1,8 +1,10 @@
 <template>
   <div class="container py-6 min-h-[calc(100vh-80px)]">
     <div class="flex gap-6 h-full">
-      <!-- Panel lateral de opciones (30%) -->
-      <div class="w-1/4 bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+      <!-- Panel lateral de opciones -->
+      <div class="w-1/4 bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+        <h2 class="text-xl font-semibold text-gray-800 mb-1 px-3">Configuración</h2>
+        <p class="text-sm text-gray-500 mb-4 px-3">Administra los ajustes de tu tienda y cuenta</p>
         <nav class="space-y-2">
           <router-link
             v-for="option in settingsOptions"
@@ -11,8 +13,8 @@
             class="flex items-center px-3 py-2 text-sm font-medium rounded-md transition-colors"
             :class="[
               $route.path === option.route
-                ? 'text-white bg-primary'
-                : 'text-gray-700 dark:text-gray-200 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-700'
+                ? 'text-white bg-primary shadow-sm'
+                : 'text-gray-700 hover:text-primary-700 hover:bg-gray-50'
             ]"
           >
             <component :is="option.icon" class="w-5 h-5 mr-2" />
@@ -21,8 +23,8 @@
         </nav>
       </div>
 
-      <!-- Contenido principal (70%) -->
-      <div class="flex-1 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+      <!-- Contenido principal -->
+      <div class="flex-1 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
         <router-view></router-view>
       </div>
     </div>
@@ -70,4 +72,4 @@ const settingsOptions = [
     route: '/admin/settings/appearance'
   }
 ]
-</script> 
+</script>
