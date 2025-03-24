@@ -124,19 +124,19 @@
             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Producto
             </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
               SKU
             </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
               Categoría
             </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Precio
             </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
               Stock
             </th>
-            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
               Estado
             </th>
             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -155,65 +155,125 @@
               No se encontraron productos.
             </td>
           </tr>
-          <tr v-for="product in paginatedProducts" :key="product.id" class="hover:bg-gray-50">
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="h-10 w-10 flex-shrink-0">
-                  <img class="h-10 w-10 rounded-md object-cover" :src="product.thumbnail" alt="" />
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">
-                    {{ product.name }}
+          <template v-for="product in paginatedProducts" :key="product.id">
+            <!-- Fila principal del producto -->
+            <tr class="hover:bg-gray-50 cursor-pointer md:cursor-default" @click="toggleProductDetails(product)">
+              <td class="px-2 md:px-6 py-3 md:py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="h-8 w-8 md:h-10 md:w-10 flex-shrink-0">
+                    <img class="h-8 w-8 md:h-10 md:w-10 rounded-md object-cover" :src="product.thumbnail" alt="" />
+                  </div>
+                  <div class="ml-2 md:ml-4">
+                    <div class="text-xs md:text-sm font-medium text-gray-900 truncate max-w-[100px] md:max-w-full">
+                      {{ product.name }}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ product.sku }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ getCategoryName(product.categoryId) }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ formatPrice(product.price) }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ product.stock }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span
-                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                :class="{
-                  'bg-green-100 text-green-800': product.active,
-                  'bg-gray-100 text-gray-800': !product.active
-                }"
-              >
-                {{ product.active ? 'Activo' : 'Inactivo' }}
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-              <div class="flex justify-end space-x-2">
-                <button
-                  @click="editProduct(product)"
-                  class="text-primary hover:text-primary-700"
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                {{ product.sku }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                {{ getCategoryName(product.categoryId) }}
+              </td>
+              <td class="px-2 md:px-6 py-3 md:py-4 whitespace-nowrap text-xs md:text-sm text-gray-500">
+                {{ formatPrice(product.price) }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 hidden md:table-cell">
+                {{ product.stock }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap hidden md:table-cell">
+                <span
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                  :class="{
+                    'bg-green-100 text-green-800': product.active,
+                    'bg-gray-100 text-gray-800': !product.active
+                  }"
                 >
-                  <PencilIcon class="h-5 w-5" />
-                </button>
-                <button
-                  @click="duplicateProduct(product)"
-                  class="text-blue-600 hover:text-blue-800"
-                >
-                  <CopyIcon class="h-5 w-5" />
-                </button>
-                <button
-                  @click="confirmDelete(product)"
-                  class="text-red-600 hover:text-red-800"
-                >
-                  <TrashIcon class="h-5 w-5" />
-                </button>
-              </div>
-            </td>
-          </tr>
+                  {{ product.active ? 'Activo' : 'Inactivo' }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end space-x-2">
+                  <button
+                    @click.stop="editProduct(product)"
+                    class="text-primary hover:text-primary-700"
+                  >
+                    <PencilIcon class="h-5 w-5" />
+                  </button>
+                  <button
+                    @click.stop="duplicateProduct(product)"
+                    class="text-blue-600 hover:text-blue-800"
+                    aria-label="Duplicar producto"
+                  >
+                    <CopyIcon class="h-5 w-5" />
+                  </button>
+                  <button
+                    @click.stop="openDeleteConfirmation(product)"
+                    class="text-red-600 hover:text-red-800"
+                    aria-label="Eliminar producto"
+                  >
+                    <TrashIcon class="h-5 w-5" />
+                  </button>
+                </div>
+              </td>
+            </tr>
+            
+            <!-- Fila de detalles (solo móvil) -->
+            <tr v-if="selectedProductId === product.id" class="md:hidden bg-gray-50">
+              <td colspan="7" class="px-4 py-3">
+                <div class="grid grid-cols-1 gap-3 text-sm">
+                  <div class="flex justify-between">
+                    <span class="font-medium text-gray-500">SKU:</span>
+                    <span>{{ product.sku }}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="font-medium text-gray-500">Categoría:</span>
+                    <span>{{ getCategoryName(product.categoryId) }}</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="font-medium text-gray-500">Stock:</span>
+                    <span>{{ product.stock }} unidades</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="font-medium text-gray-500">Estado:</span>
+                    <span 
+                      class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
+                      :class="{
+                        'bg-green-100 text-green-800': product.active,
+                        'bg-gray-100 text-gray-800': !product.active
+                      }"
+                    >
+                      {{ product.active ? 'Activo' : 'Inactivo' }}
+                    </span>
+                  </div>
+                  <div class="flex justify-center space-x-4 mt-2 pt-2 border-t border-gray-200">
+                    <button
+                      @click="editProduct(product)"
+                      class="inline-flex items-center px-3 py-1.5 rounded-md bg-primary text-white text-xs"
+                    >
+                      <PencilIcon class="h-3.5 w-3.5 mr-1" />
+                      Editar
+                    </button>
+                    <button
+                      @click="duplicateProduct(product)"
+                      class="inline-flex items-center px-3 py-1.5 rounded-md bg-blue-600 text-white text-xs"
+                    >
+                      <CopyIcon class="h-3.5 w-3.5 mr-1" />
+                      Duplicar
+                    </button>
+                    <button
+                      @click="openDeleteConfirmation(product)"
+                      class="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white text-xs"
+                    >
+                      <TrashIcon class="h-3.5 w-3.5 mr-1" />
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
       
@@ -296,6 +356,16 @@
       </div>
     </div>
   </div>
+  
+  <!-- Modal de confirmación -->
+  <ConfirmModal
+    v-if="showConfirmModal"
+    :title="confirmModalTitle"
+    :message="confirmModalMessage"
+    :confirm-text="confirmModalConfirmText"
+    @confirm="handleConfirmAction"
+    @close="showConfirmModal = false"
+  />
 </template>
 
 <script setup>
@@ -315,6 +385,7 @@ import {
 } from 'lucide-vue-next'
 import { useCustomToast } from '../../../composables/useToast'
 import { useRouter } from 'vue-router'
+import ConfirmModal from '../../../components/ConfirmModal.vue'
 
 const router = useRouter()
 const { showToast } = useCustomToast()
@@ -457,12 +528,51 @@ const duplicateProduct = (product) => {
   showToast(`Función en desarrollo: Duplicar ${product.name}`, 'info')
 }
 
-const confirmDelete = (product) => {
-  if (confirm(`¿Estás seguro de que deseas eliminar el producto "${product.name}"?`)) {
-    // Aquí iría la lógica para eliminar el producto
-    products.value = products.value.filter(p => p.id !== product.id)
-    showToast('Producto eliminado correctamente', 'success')
+// Estado para detalles del producto en vista móvil
+const selectedProductId = ref(null)
+
+function toggleProductDetails(product) {
+  if (selectedProductId.value === product.id) {
+    selectedProductId.value = null
+  } else {
+    selectedProductId.value = product.id
   }
+}
+
+// Estado y lógica para el modal de confirmación
+const showConfirmModal = ref(false)
+const confirmModalTitle = ref('')
+const confirmModalMessage = ref('')
+const confirmModalConfirmText = ref('Confirmar')
+const pendingProduct = ref(null)
+
+function openDeleteConfirmation(product) {
+  confirmModalTitle.value = 'Eliminar producto'
+  confirmModalMessage.value = `¿Estás seguro de que deseas eliminar el producto "${product.name}"?`
+  confirmModalConfirmText.value = 'Sí, eliminar'
+  pendingProduct.value = product
+  showConfirmModal.value = true
+}
+
+function handleConfirmAction() {
+  if (pendingProduct.value) {
+    // Aquí iría la lógica para eliminar el producto
+    products.value = products.value.filter(p => p.id !== pendingProduct.value.id)
+    showToast('Producto eliminado correctamente', 'success')
+    
+    // Si el producto eliminado era el seleccionado, cerramos el panel de detalles
+    if (selectedProductId.value === pendingProduct.value.id) {
+      selectedProductId.value = null
+    }
+    
+    pendingProduct.value = null
+  }
+  showConfirmModal.value = false
+}
+
+// Reemplazar el método confirmDelete existente con este:
+const confirmDelete = (product) => {
+  openDeleteConfirmation(product)
 }
 
 // Compute if there are active filters
@@ -486,3 +596,21 @@ onMounted(async () => {
   loading.value = false
 })
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    scrollbar-width: none; /* Para Firefox */
+    -ms-overflow-style: none; /* Para Internet Explorer y Edge */
+  }
+  
+  .overflow-x-auto::-webkit-scrollbar {
+    display: none; /* Para Chrome, Safari y Opera */
+  }
+  
+  /* Añadir un indicador visual para mostrar que la fila es expandible */
+  tr.cursor-pointer:active {
+    background-color: #f3f4f6;
+  }
+}
+</style>

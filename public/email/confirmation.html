@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirma tu correo electrónico - MESURA</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            padding: 20px 30px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            background: linear-gradient(90deg, #b19cd9 0%, #9370DB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Contenido principal */
+        .content {
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .split-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+        .text-content {
+            flex: 1;
+            padding-right: 20px;
+        }
+        
+        .image-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .image-content img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin: 0 0 20px;
+            color: #222;
+            font-weight: 800;
+        }
+        
+        p {
+            margin: 0 0 20px;
+            color: #666;
+        }
+        
+        /* Botones */
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #9370DB;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background-color: #8a60d4;
+        }
+        
+        .button-secondary {
+            display: inline-block;
+            padding: 11px 24px;
+            background-color: white;
+            color: #333;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+        
+        .button-secondary:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f9f9f9;
+            padding: 20px 30px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .social-links {
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: inline-block;
+            margin: 0 10px;
+            color: #9370DB;
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .split-content {
+                flex-direction: column;
+            }
+            
+            .text-content {
+                padding-right: 0;
+                padding-bottom: 30px;
+            }
+            
+            .button, .button-secondary {
+                display: block;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">MESURA</div>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content">
+            <div class="split-content">
+                <div class="text-content">
+                    <h1>Confirma tu correo electrónico</h1>
+                    <p>Gracias por registrarte en MESURA. Para completar tu registro y acceder a nuestra exclusiva colección, por favor confirma tu dirección de correo electrónico.</p>
+                    
+                    <p>Haz clic en el botón a continuación para verificar tu cuenta:</p>
+                    
+                    <a href="{{ .ConfirmationURL }}" class="button">Confirmar correo</a>
+                    
+                    <p style="margin-top: 30px; font-size: 14px;">Si no puedes hacer clic en el botón, copia y pega este enlace en tu navegador:</p>
+                    <p style="font-size: 12px; word-break: break-all; color: #999;">{{ .ConfirmationURL }}</p>
+                    
+                    <p style="margin-top: 30px;">O utiliza este código de verificación:</p>
+                    <div style="background-color: #f5f5f5; padding: 15px; border-radius: 6px; text-align: center; font-size: 24px; letter-spacing: 2px; font-weight: bold; color: #333; margin-bottom: 20px;">
+                        {{ .Token }}
+                    </div>
+                </div>
+                
+                <div class="image-content">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-EhjxVVm9txsWcpC7xOIyKI352VOd9K.png" alt="MESURA" style="max-height: 300px; width: auto;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>© 2025 MESURA. Todos los derechos reservados.</p>
+            <p>Si no solicitaste este correo, puedes ignorarlo de forma segura.</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Facebook</a>
+                <a href="#" class="social-link">Twitter</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
