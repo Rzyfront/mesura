@@ -108,13 +108,13 @@
           <router-link to="/admin/dashboard" class="text-sm font-medium transition-colors hover:text-primary">
             Dashboard
           </router-link>
-          <router-link to="/admin/products" class="text-sm font-medium transition-colors hover:text-primary">
+          <router-link to="/admin/settings/products" class="text-sm font-medium transition-colors hover:text-primary">
             Productos
           </router-link>
-          <router-link to="/admin/orders" class="text-sm font-medium transition-colors hover:text-primary">
+          <router-link to="/admin/settings/orders" class="text-sm font-medium transition-colors hover:text-primary">
             Pedidos
           </router-link>
-          <router-link to="/admin/customers" class="text-sm font-medium transition-colors hover:text-primary">
+          <router-link to="/admin/settings/customers" class="text-sm font-medium transition-colors hover:text-primary">
             Clientes
           </router-link>
         </nav>
