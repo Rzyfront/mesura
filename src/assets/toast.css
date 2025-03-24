@@ -18,9 +18,9 @@
   background-color: #f59e0b !important;
 }
 
-/* Info Toast */
+/* Info Toast - Cambiado para usar el mismo estilo que Success */
 .Vue-Toastification__toast--info {
-  background-color: #3b82f6 !important;
+  background: linear-gradient(to right, #9333ea, #a855f7) !important;
 }
 
 /* Toast Body */
@@ -41,4 +41,4 @@
 /* Progress Bar */
 .Vue-Toastification__progress-bar {
   background: rgba(255, 255, 255, 0.3) !important;
-} 
+}

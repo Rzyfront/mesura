@@ -42,19 +42,9 @@ import {
 
 const settingsOptions = [
   {
-    name: 'Productos',
-    icon: Package,
-    route: '/admin/settings/products'
-  },
-  {
-    name: 'Ordenes',
-    icon: ShoppingCart,
-    route: '/admin/settings/orders'
-  },
-  {
-    name: 'Clientes',
-    icon: Users,
-    route: '/admin/settings/customers'
+    name: 'Mi Perfil',
+    icon: User,
+    route: '/admin/settings/profile'
   },
   {
     name: 'Usuarios',
@@ -62,13 +52,24 @@ const settingsOptions = [
     route: '/admin/settings/users'
   },
   {
-    name: 'Mi Perfil',
-    icon: User,
-    route: '/admin/settings/profile'
+    name: 'Clientes',
+    icon: Users,
+    route: '/admin/settings/customers'
+  },
+  {
+    name: 'Ordenes',
+    icon: ShoppingCart,
+    route: '/admin/settings/orders'
+  },
+  {
+    name: 'Productos',
+    icon: Package,
+    route: '/admin/settings/products'
   },
   {
     name: 'Apariencia',
-    icon: Palette,
+    icon
+  : Palette,
     route: '/admin/settings/appearance'
   }
 ]

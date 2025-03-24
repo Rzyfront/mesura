@@ -32,21 +32,21 @@
           <LayoutDashboard class="h-5 w-5 mr-2" />
           Dashboard
         </router-link>
-        <router-link to="/admin/products" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
+        <router-link to="/admin/settings/products" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
           <ShoppingBag class="h-5 w-5 mr-2" />
           Productos
         </router-link>
-        <router-link to="/admin/orders" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
+        <router-link to="/admin/settings/orders" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
           <ClipboardList class="h-5 w-5 mr-2" />
           Pedidos
         </router-link>
-        <router-link to="/admin/customers" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
+        <router-link to="/admin/settings/customers" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
           <Users class="h-5 w-5 mr-2" />
           Clientes
         </router-link>
-        <router-link to="/admin/settings" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
-          <Settings class="h-5 w-5 mr-2" />
-          Configuración
+        <router-link to="/admin/settings/users" class="text-lg font-medium transition-colors hover:text-purple-600 flex items-center" @click="isMobileMenuOpen = false">
+          <Users class="h-5 w-5 mr-2" />
+          Usuarios
         </router-link>
       </nav>
       
@@ -108,14 +108,17 @@
           <router-link to="/admin/dashboard" class="text-sm font-medium transition-colors hover:text-primary">
             Dashboard
           </router-link>
+          <router-link to="/admin/settings/users" class="text-sm font-medium transition-colors hover:text-primary">
+            Usuarios
+          </router-link>
+          <router-link to="/admin/settings/customers" class="text-sm font-medium transition-colors hover:text-primary">
+            Clientes
+          </router-link>
           <router-link to="/admin/settings/products" class="text-sm font-medium transition-colors hover:text-primary">
             Productos
           </router-link>
           <router-link to="/admin/settings/orders" class="text-sm font-medium transition-colors hover:text-primary">
             Pedidos
-          </router-link>
-          <router-link to="/admin/settings/customers" class="text-sm font-medium transition-colors hover:text-primary">
-            Clientes
           </router-link>
         </nav>
       </div>
