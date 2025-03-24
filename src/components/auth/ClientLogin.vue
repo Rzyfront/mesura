@@ -195,10 +195,12 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useClientAuthStore } from '../../stores/authClients'
+import { useCustomToast } from '../../composables/useToast'
 
 const router = useRouter()
 const authStore = useClientAuthStore()
 const showPassword = ref(false)
+const { showSuccess, showError } = useCustomToast()
 
 const form = ref({
   email: '',
@@ -211,21 +213,28 @@ const togglePasswordVisibility = () => {
 }
 
 async function handleLogin() {
-  const success = await authStore.login(form.value.email, form.value.password)
-  if (success) {
-    router.push('/client-dashboard') // Different redirect for clients
+  try {
+    const success = await authStore.login(form.value.email, form.value.password)
+    if (success) {
+      showSuccess('¡Bienvenido a tu portal de cliente!')
+      router.push('/products')
+    } else {
+      showError('Credenciales incorrectas')
+    }
+  } catch (error) {
+    showError('Error al iniciar sesión')
   }
 }
 
 async function forgotPassword() {
   if (!form.value.email) {
-    alert('Por favor ingrese su dirección de email primero')
+    showError('Por favor ingrese su dirección de email primero')
     return
   }
   
   const success = await authStore.resetPassword(form.value.email)
   if (success) {
-    alert('Se ha enviado un correo con instrucciones para restablecer su contraseña')
+    showSuccess('Se ha enviado un correo con instrucciones para restablecer su contraseña')
   }
 }
 </script>

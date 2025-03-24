@@ -1,0 +1,44 @@
+/* Toast Container */
+.Vue-Toastification__container {
+  z-index: 9999;
+}
+
+/* Success Toast */
+.Vue-Toastification__toast--success {
+  background: linear-gradient(to right, #9333ea, #a855f7) !important;
+}
+
+/* Error Toast */
+.Vue-Toastification__toast--error {
+  background-color: #ef4444 !important;
+}
+
+/* Warning Toast */
+.Vue-Toastification__toast--warning {
+  background-color: #f59e0b !important;
+}
+
+/* Info Toast */
+.Vue-Toastification__toast--info {
+  background-color: #3b82f6 !important;
+}
+
+/* Toast Body */
+.Vue-Toastification__toast-body {
+  font-family: inherit;
+}
+
+/* Close Button */
+.Vue-Toastification__close-button {
+  color: white !important;
+  opacity: 0.7;
+}
+
+.Vue-Toastification__close-button:hover {
+  opacity: 1;
+}
+
+/* Progress Bar */
+.Vue-Toastification__progress-bar {
+  background: rgba(255, 255, 255, 0.3) !important;
+} 

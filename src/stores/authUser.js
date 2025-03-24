@@ -14,10 +14,18 @@ export const useUserAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!user.value)
   const currentUser = computed(() => user.value)
   const isAdmin = computed(() => {
-    const role = userDetails.value?.role
+    console.log('Computing isAdmin:', {
+      userDetails: userDetails.value,
+      role: userDetails.value?.role,
+      normalizedRole: userDetails.value?.role?.toLowerCase()
+    })
+    const role = userDetails.value?.role?.toLowerCase()
     return role === 'admin' || role === 'super_admin'
   })
-  const isSuperAdmin = computed(() => userDetails.value?.role === 'super_admin')
+  const isSuperAdmin = computed(() => {
+    const role = userDetails.value?.role?.toLowerCase()
+    return role === 'super_admin'
+  })
 
   // Helper function to fetch user details from users table
   async function fetchUserDetails() {
@@ -36,7 +44,12 @@ export const useUserAuthStore = defineStore('auth', () => {
       
       if (data) {
         userDetails.value = data
-        console.log('User details loaded:', data.role)
+        console.log('User details loaded:', {
+          id: data.id,
+          email: data.email,
+          role: data.role,
+          isAdmin: data.role === 'admin' || data.role === 'super_admin'
+        })
         return data
       } else {
         throw new Error('No se encontró información del usuario')
@@ -58,10 +71,9 @@ export const useUserAuthStore = defineStore('auth', () => {
       // Check for active session
       const { data } = await supabase.auth.getSession()
       session.value = data.session
-      user.value = data.session?.user || null
       
-      // If user is logged in, fetch their details
-      if (user.value) {
+      if (data.session?.user) {
+        user.value = data.session.user
         await fetchUserDetails()
       }
       
@@ -71,7 +83,6 @@ export const useUserAuthStore = defineStore('auth', () => {
         
         if (newSession?.user) {
           user.value = newSession.user
-          // Fetch user details when auth state changes
           await fetchUserDetails()
         } else {
           user.value = null
@@ -92,6 +103,7 @@ export const useUserAuthStore = defineStore('auth', () => {
     error.value = null
     
     try {
+      console.log('Attempting login for:', email)
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password
@@ -99,6 +111,7 @@ export const useUserAuthStore = defineStore('auth', () => {
       
       if (authError) throw authError
       
+      console.log('Auth successful, user:', data.user)
       user.value = data.user
       session.value = data.session
       
@@ -108,9 +121,16 @@ export const useUserAuthStore = defineStore('auth', () => {
       if (!userInfo) {
         throw new Error('No se pudo cargar la información del usuario')
       }
-      
+
+      // Log the role check
+      console.log('Role check:', {
+        role: userInfo.role,
+        isAdmin: userInfo.role === 'admin' || userInfo.role === 'super_admin'
+      })
+
       return true
     } catch (err) {
+      console.error('Login error:', err)
       error.value = err.message || 'Error al iniciar sesión'
       user.value = null
       session.value = null

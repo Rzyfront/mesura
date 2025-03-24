@@ -1,7 +1,7 @@
 <template>
     <main class="flex-1">
       <!-- Hero Section -->
-      <section class="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
+      <section class="w-full min-h-[calc(100vh-64px)] flex items-center bg-muted/30">
         <div class="container px-4 md:px-6">
           <div class="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
             <div class="space-y-4">

@@ -197,7 +197,7 @@
             <template v-if="isClientAuthenticated">
               <div class="px-4 py-2 text-sm border-b border-gray-100">
                 <p class="font-medium text-gray-900">{{ clientDetails?.first_name || 'Cliente' }}</p>
-                <p class="text-gray-500 truncate">{{ clientDetails?.email || userStore.user?.email }}</p>
+                <p class="text-gray-500 truncate">{{ clientDetails?.email || clientStore.client?.email }}</p>
               </div>
               <router-link to="/perfil" class="block px-4 py-2 text-sm text-gray-700 hover:bg-purple-50" @click="isUserMenuOpen = false">
                 <div class="flex items-center">
@@ -266,9 +266,11 @@ import {
 } from 'lucide-vue-next'
 import Logo from './Logo.vue'
 import { useClientAuthStore } from '../stores/authClients.js'
+import { useCustomToast } from '../composables/useToast'
 
 const router = useRouter()
 const clientStore = useClientAuthStore()
+const { showSuccess } = useCustomToast()
 const isMobileMenuOpen = ref(false)
 const searchQuery = ref('')
 const isUserMenuOpen = ref(false)
@@ -289,6 +291,7 @@ async function logout() {
   await clientStore.logout()
   isMobileMenuOpen.value = false
   isUserMenuOpen.value = false
+  showSuccess('¡Hasta pronto! Recuerda que puedes seguir comprando en nuestra tienda 🛍️')
   router.push('/')
 }
 

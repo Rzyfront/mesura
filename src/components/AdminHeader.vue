@@ -66,7 +66,7 @@
         </div>
         
         <button 
-          @click="logout"
+          @click="handleLogout"
           class="w-full py-2 flex items-center justify-center rounded-md bg-purple-50 text-purple-700 hover:bg-purple-100 transition-colors"
         >
           <LogOut class="h-4 w-4 mr-2" />
@@ -176,7 +176,7 @@
               </div>
             </router-link>
             <button 
-              @click="logout"
+              @click="handleLogout"
               class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-purple-50"
               role="menuitem"
             >
@@ -209,6 +209,7 @@ import {
 } from 'lucide-vue-next'
 import Logo from './Logo.vue'
 import { useUserAuthStore } from '../stores/authUser'
+import { useCustomToast } from '../composables/useToast'
 
 const router = useRouter()
 const userStore = useUserAuthStore()
@@ -218,10 +219,22 @@ const isUserMenuOpen = ref(false)
 const isAuthenticated = computed(() => userStore.isAuthenticated)
 const userDetails = computed(() => userStore.userDetails)
 
-async function logout() {
+// Array of farewell messages
+const farewellMessages = [
+  "¡Que tengas un excelente descanso! Has hecho un gran trabajo hoy 🌟",
+  "¡Hasta pronto! Gracias por mantener todo en orden, tómate un merecido descanso ✨",
+  "¡Nos vemos! Recuerda que tu dedicación hace la diferencia, ahora es momento de recargar energías 🌙",
+  "¡Que descanses! Tu esfuerzo hace que MESURA sea mejor cada día 💫",
+  "¡Hasta la próxima! Es momento de relajarse después de un productivo día de trabajo 🎯"
+]
+
+async function handleLogout() {
+  const { showSuccess } = useCustomToast()
+  const randomMessage = farewellMessages[Math.floor(Math.random() * farewellMessages.length)]
   await userStore.logout()
   isMobileMenuOpen.value = false
   isUserMenuOpen.value = false
-  router.push('/login')
+  showSuccess(randomMessage)
+  router.push('/')
 }
 </script>

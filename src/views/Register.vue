@@ -116,10 +116,12 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useClientAuthStore } from '../stores/authClients'
+import { useCustomToast } from '../composables/useToast'
 import Logo from '../components/Logo.vue'
 
 const router = useRouter()
-const authStore = useClientAuthStore() // Update to useClientAuthStore()
+const authStore = useClientAuthStore()
+const { showSuccess, showError } = useCustomToast()
 
 // Form visibility states
 const showPassword = ref(false)
@@ -137,24 +139,16 @@ const togglePasswordVisibility = () => {
 }
 
 async function handleRegister() {
-  // Clear previous errors
-  authStore.clearErrors()
-  
-  // Password strength validation
-  if (form.value.password.length < 8) {
-    authStore.setError('La contraseña debe tener al menos 8 caracteres')
-    return
-  }
-  
-  // Call registration method from auth store
-  const success = await authStore.register(
-    form.value.name, 
-    form.value.email, 
-    form.value.password
-  )
-  
-  if (success) {
-    router.push('/products') // Redirect after successful registration
+  try {
+    const success = await authStore.register(form.value.name, form.value.email, form.value.password)
+    if (success) {
+      showSuccess('¡Cuenta creada exitosamente! Bienvenido a Mesura.')
+      router.push('/client-dashboard')
+    } else {
+      showError('Error al crear la cuenta')
+    }
+  } catch (error) {
+    showError('Error en el registro')
   }
 }
 </script>

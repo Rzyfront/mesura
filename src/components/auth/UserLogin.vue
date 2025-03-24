@@ -166,10 +166,14 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserAuthStore } from '../../stores/authUser'
+import { useClientAuthStore } from '../../stores/authClients'
+import { useCustomToast } from '../../composables/useToast'
 
 const router = useRouter()
 const authStore = useUserAuthStore()
+const clientAuthStore = useClientAuthStore()
 const showPassword = ref(false)
+const { showSuccess, showError, showWarning } = useCustomToast()
 
 const form = ref({
   email: '',
@@ -182,21 +186,41 @@ const togglePasswordVisibility = () => {
 }
 
 async function handleLogin() {
-  const success = await authStore.login(form.value.email, form.value.password)
-  if (success) {
-    router.push('/admin/dashboard')
+  try {
+    // Primero intentamos login como admin
+    const success = await authStore.login(form.value.email, form.value.password)
+    
+    if (success) {
+      showSuccess('¡Bienvenido al panel de administración!')
+      router.push('/admin/dashboard')
+      return
+    }
+    
+    // Si falla, intentamos login como cliente
+    const clientSuccess = await clientAuthStore.login(form.value.email, form.value.password)
+    
+    if (clientSuccess) {
+      showWarning('Has iniciado sesión con una cuenta de cliente. Redirigiendo al área de clientes...')
+      router.push('/products')
+      return
+    }
+    
+    // Si ambos fallan, mostramos error de credenciales
+    showError('Credenciales incorrectas')
+  } catch (error) {
+    showError('Error al iniciar sesión')
   }
 }
 
 async function forgotPassword() {
   if (!form.value.email) {
-    alert('Por favor ingrese su dirección de email administrativa')
+    showError('Por favor ingrese su dirección de email primero')
     return
   }
   
   const success = await authStore.resetPassword(form.value.email)
   if (success) {
-    alert('Se ha enviado un correo con instrucciones para restablecer su contraseña')
+    showSuccess('Se ha enviado un correo con instrucciones para restablecer su contraseña')
   }
 }
 </script>
