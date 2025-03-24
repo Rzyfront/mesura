@@ -1,5 +1,5 @@
 <template>
-    <main class="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 gap-8">
+    <main class="min-h-screen flex flex-col md:flex-row items-center justify-center p-6 gap-8 mt-16 md:mt-0">
       <!-- Login Form Section -->
       <div class="w-full max-w-md">
         <div class="text-center mb-8">
