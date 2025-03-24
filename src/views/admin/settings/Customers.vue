@@ -1,5 +1,5 @@
 <template>
-  <div class="container space-y-6">
+  <div class="container space-y-6 p-2 md:p-0">
     <div>
       <h3 class="text-2xl font-bold tracking-tight">Configuración de Clientes</h3>
       <p class="text-muted-foreground">

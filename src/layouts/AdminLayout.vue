@@ -1,4 +1,5 @@
 <template>
+  <!-- AdminLayout.vue -->
   <div class="min-h-screen bg-gray-50">
     <!-- AdminHeader ya está siendo manejado en App.vue -->
     

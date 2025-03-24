@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center mt-2 mb-4 sm:mb-6">
       <div>
         <h3 class="text-xl font-semibold text-gray-900">
           {{ showForm ? (isEditMode ? 'Editar Usuario' : 'Agregar Nuevo Usuario') : 'Usuarios del Sistema' }}
@@ -15,7 +15,7 @@
         class="px-2 py-1 sm:px-4 sm:py-2 bg-primary text-white rounded-md hover:bg-primary-700 transition-colors flex items-center gap-1 sm:gap-2 text-xs sm:text-base whitespace-nowrap"
       >
         <UserPlus class="h-4 w-4 sm:h-5 sm:w-5" />
-        <span class="hidden md:inline lg:hidden">Nuevo</span>
+        <span class="md:inline lg:hidden">Nuevo</span>
         <span class="hidden lg:inline">Nuevo Usuario</span>
       </button>
       <button 
@@ -253,7 +253,7 @@
                   </span>
                 </td>
                 <td class="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <div class="flex justify-end space-x-1 sm:space-x-3">
+                  <div class="flex justify-end space-x-1 sm:space-x-3 p-2 sm:p-0">
                     <button 
                       @click.stop="openEditUserModal(user)"
                       class="text-primary hover:text-primary-700"

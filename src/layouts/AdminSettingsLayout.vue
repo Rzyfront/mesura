@@ -1,8 +1,9 @@
 <template>
-  <div class="container py-6 min-h-[calc(100vh-80px)]">
+  <!-- AdminSettingsLayout.vue -->
+  <div class="container px-1 md:px-6 py-6 min-h-[calc(100vh-80px)]">
     <div class="flex flex-col lg:flex-row gap-6 h-full">
       <!-- Panel lateral de opciones -->
-      <div class="w-full lg:w-1/4 bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+      <div class="w-full lg:w-1/4 bg-white rounded-lg shadow-sm border border-gray-100 p-2 lg:p-4">
         <h2 class="text-xl font-semibold text-gray-800 mb-1 px-3">Configuración</h2>
         <p class="text-sm text-gray-500 mb-4 px-3">Administra los ajustes de tu tienda y cuenta</p>
         <nav class="space-y-2">
@@ -24,7 +25,7 @@
       </div>
 
       <!-- Contenido principal -->
-      <div class="flex-1 bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+      <div class="flex-1 bg-white rounded-lg shadow-sm border border-gray-100 p-2 sm:p-6">
         <router-view></router-view>
       </div>
     </div>
@@ -68,8 +69,7 @@ const settingsOptions = [
   },
   {
     name: 'Apariencia',
-    icon
-  : Palette,
+    icon: Palette,
     route: '/admin/settings/appearance'
   }
 ]

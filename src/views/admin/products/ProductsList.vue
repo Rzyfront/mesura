@@ -1,25 +1,39 @@
 <template>
-  <div class="space-y-6 p-8">
+  <div class="container space-y-6 mt-2 p-1 md:p-6">
     <div class="flex justify-between items-center">
-      <div>
-        <h3 class="text-xl font-medium text-gray-900">Gestión de Productos</h3>
-        <p class="mt-1 text-sm text-gray-500">
-          Administra el catálogo de productos de tu tienda.
-        </p>
+      <div class="flex items-center gap-4">
+        <!-- Back button -->
+        <button 
+          @click="router.back()"
+          class="inline-flex items-center text-sm text-gray-500 hover:text-gray-700"
+        >
+          <ArrowLeft class="h-4 w-4" />
+          <span class="hidden md:inline ml-1">Volver</span>
+        </button>
+
+        <div>
+          <h3 class="text-lg md:text-xl font-medium text-gray-900">Gestión de Productos</h3>
+          <small class="text-[11px] md:text-sm text-gray-500 block">
+            Administra el catálogo de productos de tu tienda.
+          </small>
+        </div>
       </div>
+
       <button
         type="button"
-        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-        @click="openCreateModal"
+        class="inline-flex items-center px-2 py-1 md:px-4 md:py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+        @click="router.push('/admin/products/add')"
       >
-        <PlusIcon class="w-4 h-4 mr-2" />
-        Nuevo Producto
+        <PlusIcon class="w-4 h-4 md:mr-2" />
+        <span class="hidden md:inline">Nuevo Producto</span>
+        <span class="inline md:hidden">Nuevo</span>
       </button>
     </div>
 
     <!-- Filtros y búsqueda -->
-    <div class="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-      <div class="flex gap-4">
+    <div class="space-y-4">
+      <div class="flex gap-4 items-center">
+        <!-- Barra de búsqueda siempre visible -->
         <div class="flex-1">
           <label for="search" class="sr-only">Buscar</label>
           <div class="relative rounded-md shadow-sm">
@@ -36,29 +50,68 @@
             />
           </div>
         </div>
-        <div class="w-40">
-          <select
-            v-model="filterCategory"
-            class="block w-full py-2 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-primary focus:border-primary"
+
+        <!-- Botón de filtros -->
+        <div class="relative">
+          <button
+            @click="showFilters = !showFilters"
+            class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
           >
-            <option value="">Todas las categorías</option>
-            <option v-for="category in categories" :key="category.id" :value="category.id">
-              {{ category.name }}
-            </option>
-          </select>
-        </div>
-        <div class="w-40">
-          <select
-            v-model="sortBy"
-            class="block w-full py-2 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-primary focus:border-primary"
+            <FilterIcon class="h-4 w-4 mr-2" />
+            Filtros
+            <span 
+              v-if="hasActiveFilters"
+              class="ml-2 inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-primary text-white"
+            >
+              {{ activeFiltersCount }}
+            </span>
+          </button>
+
+          <!-- Panel de filtros flotante -->
+          <transition
+            enter-active-class="transition ease-out duration-200"
+            enter-from-class="transform opacity-0 scale-95"
+            enter-to-class="transform opacity-100 scale-100"
+            leave-active-class="transition ease-in duration-150"
+            leave-from-class="transform opacity-100 scale-100"
+            leave-to-class="transform opacity-0 scale-95"
           >
-            <option value="name">Nombre (A-Z)</option>
-            <option value="-name">Nombre (Z-A)</option>
-            <option value="price">Precio (Menor a Mayor)</option>
-            <option value="-price">Precio (Mayor a Menor)</option>
-            <option value="-createdAt">Fecha (Más reciente)</option>
-            <option value="createdAt">Fecha (Más antiguo)</option>
-          </select>
+            <div 
+              v-show="showFilters" 
+              class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10"
+            >
+              <div class="p-4 divide-y divide-gray-200">
+                <div class="space-y-4">
+                  <div class="w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Categoría</label>
+                    <select
+                      v-model="filterCategory"
+                      class="block w-full py-2 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-primary focus:border-primary"
+                    >
+                      <option value="">Todas las categorías</option>
+                      <option v-for="category in categories" :key="category.id" :value="category.id">
+                        {{ category.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="w-full">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Ordenar por</label>
+                    <select
+                      v-model="sortBy"
+                      class="block w-full py-2 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-primary focus:border-primary"
+                    >
+                      <option value="name">Nombre (A-Z)</option>
+                      <option value="-name">Nombre (Z-A)</option>
+                      <option value="price">Precio (Menor a Mayor)</option>
+                      <option value="-price">Precio (Mayor a Menor)</option>
+                      <option value="-createdAt">Fecha (Más reciente)</option>
+                      <option value="createdAt">Fecha (Más antiguo)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </transition>
         </div>
       </div>
     </div>
@@ -256,7 +309,9 @@ import {
   ChevronRight as ChevronRightIcon,
   ChevronsLeft as ChevronsLeftIcon,
   ChevronsRight as ChevronsRightIcon,
-  Copy as CopyIcon
+  Copy as CopyIcon,
+  ArrowLeft,
+  Filter as FilterIcon
 } from 'lucide-vue-next'
 import { useCustomToast } from '../../../composables/useToast'
 import { useRouter } from 'vue-router'
@@ -280,6 +335,7 @@ const filterCategory = ref('')
 const sortBy = ref('name')
 const currentPage = ref(1)
 const itemsPerPage = 10
+const showFilters = ref(false)
 
 // Generar datos de ejemplo
 const generateMockProducts = () => {
@@ -394,7 +450,7 @@ const openCreateModal = () => {
 }
 
 const editProduct = (product) => {
-  showToast(`Función en desarrollo: Editar ${product.name}`, 'info')
+  router.push(`/admin/products/edit/${product.id}`)
 }
 
 const duplicateProduct = (product) => {
@@ -408,6 +464,19 @@ const confirmDelete = (product) => {
     showToast('Producto eliminado correctamente', 'success')
   }
 }
+
+// Compute if there are active filters
+const hasActiveFilters = computed(() => {
+  return filterCategory.value !== '' || sortBy.value !== 'name'
+})
+
+// Count active filters
+const activeFiltersCount = computed(() => {
+  let count = 0
+  if (filterCategory.value) count++
+  if (sortBy.value !== 'name') count++
+  return count
+})
 
 // Ciclo de vida
 onMounted(async () => {

@@ -117,6 +117,17 @@ const routes = [
         path: 'products/list',
         name: 'AdminProductsList',
         component: () => import('../views/admin/products/ProductsList.vue')
+      },
+      {
+        path: 'products/add',
+        name: 'AdminProductsAdd', 
+        component: () => import('../views/admin/products/AddProduct.vue')
+      },
+      {
+        path: 'products/edit/:id',
+        name: 'AdminProductsEdit',
+        component: () => import('../views/admin/products/EditProduct.vue'),
+        props: true
       }
     ]
   },
