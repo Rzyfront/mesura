@@ -8,14 +8,12 @@ import Register from '../views/Register.vue'
 import { useUserAuthStore } from '../stores/authUser'
 import { useClientAuthStore } from '../stores/authClients'
 import { useCustomToast } from '../composables/useToast'
+
+// ADMIN COMPONENT
 import AdminLayout from '../layouts/AdminLayout.vue'
 import AdminSettingsLayout from '../layouts/AdminSettingsLayout.vue'
-import Appearance from '@/views/admin/settings/Appearance.vue'
-import Products from '@/views/admin/settings/Products.vue'
-import Orders from '@/views/admin/settings/Orders.vue'
-import Customers from '@/views/admin/settings/Customers.vue'
-import Users from '@/views/admin/settings/Users.vue'
-import Profile from '@/views/admin/settings/Profile.vue'
+
+
 
 const routes = [
   {
@@ -114,6 +112,11 @@ const routes = [
             component: () => import('../views/admin/settings/Appearance.vue')
           }
         ]
+      },
+      {
+        path: 'products/list',
+        name: 'AdminProductsList',
+        component: () => import('../views/admin/products/ProductsList.vue')
       }
     ]
   },

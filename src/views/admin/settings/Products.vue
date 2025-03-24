@@ -73,6 +73,24 @@
           </div>
         </div>
       </div>
+
+      <!-- Acciones de gestión de productos -->
+      <div class="py-6">
+        <h4 class="text-sm font-medium leading-6 text-gray-900">Acciones de Gestión</h4>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+          <p>Accede rápidamente a la gestión de productos de tu tienda.</p>
+        </div>
+        <div class="mt-4">
+          <button
+            type="button"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+            @click="navigateToProducts"
+          >
+            <Package class="w-4 h-4 mr-2" />
+            Gestionar Productos
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Botón guardar -->
@@ -92,10 +110,12 @@
 <script setup>
 import { ref } from 'vue'
 import { Switch } from '@headlessui/vue'
-import { Save } from 'lucide-vue-next'
+import { Save, Package } from 'lucide-vue-next'
 import { useCustomToast } from '../../../composables/useToast'
+import { useRouter } from 'vue-router'
 
 const { showToast } = useCustomToast()
+const router = useRouter()
 
 const settings = ref({
   showStock: true,
@@ -106,5 +126,9 @@ const settings = ref({
 const saveSettings = () => {
   // Aquí iría la lógica para guardar la configuración
   showToast('Configuración guardada correctamente', 'success')
+}
+
+const navigateToProducts = () => {
+  router.push('/admin/products/list')
 }
 </script>
